@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <title>Jogo de História do Brasil</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+            background-color: #f0f0f0;
+        }
+        .pergunta {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .botao {
+            display: block;
+            margin: 10px auto;
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        .botao:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Jogo de História do Brasil</h1>
+    <div class="pergunta" id="pergunta"></div>
+    <div id="opcoes"></div>
+    <div id="resultado"></div>
+
+    <script>
+        const perguntas = [
+            {
+                pergunta: "Em que ano o Brasil declarou independência de Portugal?",
+                opcoes: ["1822", "1889", "1500", "1964"],
+                correta: "1822"
+            },
+            {
+                pergunta: "Quem foi o primeiro imperador do Brasil?",
+                opcoes: ["Dom Pedro I", "Dom Pedro II", "Getúlio Vargas", "Juscelino Kubitschek"],
+                correta: "Dom Pedro I"
+            },
+            {
+                pergunta: "Qual cidade foi a primeira capital do Brasil?",
+                opcoes: ["Brasília", "Rio de Janeiro", "Salvador", "São Paulo"],
+                correta: "Salvador"
+            },
+            {
+                pergunta: "Qual foi o movimento que proclamou a República no Brasil?",
+                opcoes: ["Diretas Já", "Proclamação da República", "Independência ou Morte", "Revolução de 1930"],
+                correta: "Proclamação da República"
+            },
+            {
+                pergunta: "Em que ano a escravidão foi abolida no Brasil?",
+                opcoes: ["1888", "1822", "1500", "1988"],
+                correta: "1888"
+            }
+        ];
+
+        let indice = 0;
+        let pontos = 0;
+
+        function mostrarPergunta() {
+            if (indice >= perguntas.length) {
+                document.getElementById('pergunta').innerText = "Fim de jogo! Sua pontuação: " + pontos + "/" + perguntas.length;
+                document.getElementById('opcoes').innerHTML = "";
+                return;
+            }
+
+            const p = perguntas[indice];
+            document.getElementById('pergunta').innerText = p.pergunta;
+
+            const opcoesDiv = document.getElementById('opcoes');
+            opcoesDiv.innerHTML = "";
+
+            p.opcoes.forEach(op => {
+                const botao = document.createElement('button');
+                botao.innerText = op;
+                botao.className = "botao";
+                botao.onclick = function() {
+                    if (op === p.correta) {
+                        pontos++;
+                        alert("Correto!");
+                    } else {
+                        alert("Errado! A resposta certa é: " + p.correta);
+                    }
+                    indice++;
+                    mostrarPergunta();
+                };
+                opcoesDiv.appendChild(botao);
+            });
+        }
+
+        mostrarPergunta();
+    </script>
+
+</body>
+</html>
+</body>
+</html>
